@@ -75,6 +75,18 @@ namespace C_Sandbox
 
             Console.WriteLine(dateTime.ToString());
         }
+
+        [Test]
+        public void Timestamp()
+        {
+            var epoch = new System.DateTime(1970, 1, 1, 0, 0, 0, 0);
+            var ts = TimeSpan.FromMilliseconds(1332223454344);
+
+            var newDt = epoch.Add(ts);
+
+            Console.WriteLine(newDt);
+
+        }
     }
 
     public class LineChartForm

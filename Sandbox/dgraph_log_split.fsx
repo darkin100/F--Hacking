@@ -3,12 +3,6 @@
 open System
 open System.IO 
 
-let FileEnumerator filename = seq { 
-        use sr = System.IO.File.OpenText(filename)
-        while not sr.EndOfStream do 
-            let line = sr.ReadLine()
-            yield line 
-}
 
 
 let procLine(line:string) = 
@@ -34,13 +28,21 @@ let writeout lines name =
     File.WriteAllLines(@"D:\Projects\DgraphScripts\output\f\" + name + ".txt",res)
 
 
-let log = FileEnumerator(@"D:\Projects\DgraphScripts\logs\2012_03_11.reqlog")  
+
+
+let files = 
+    seq{
+     for f in Directory.EnumerateFiles(@"D:\Projects\DgraphScripts\logs\","*.reqlog",SearchOption.AllDirectories) do
+              yield! File.ReadLines f
+    }
+
+
 
 let sw = System.Diagnostics.Stopwatch()
 sw.Start()
 
 let clean =
-    log |> Seq.filter (fun line -> (line.Contains(@"/graph?")))
+    files |> Seq.filter (fun line -> (line.Contains(@"/graph?")))
     |> Seq.map(fun line ->  procLine(line))
     
 writeout clean "other"

@@ -1,4 +1,5 @@
-﻿#r "System.Windows.Forms.DataVisualization"
+﻿#light
+#r "System.Windows.Forms.DataVisualization"
 
 open System.IO 
 open System.Windows.Forms
