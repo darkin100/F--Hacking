@@ -29,8 +29,6 @@ type LineChartForm(title) =
 
 let f = new LineChartForm("CPU Plot")
 
-
-
 let BuildDate(line:float)=
     let epoch = new DateTime(1970,1,1,0,0,0,0)
     let ts = TimeSpan.FromMilliseconds(line)
@@ -42,7 +40,7 @@ let datetime(x,y) =
     value
 
 
-let lines = File.ReadAllLines(@"D:\Projects\DgraphScripts\output\f\productidsearch.txt")
+let lines = File.ReadAllLines(@"D:\Projects\DgraphScripts\output\f\other.txt")
 
 let xy = 
     lines

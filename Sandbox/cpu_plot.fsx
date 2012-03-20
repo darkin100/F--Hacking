@@ -15,8 +15,10 @@ type LineChartForm(title) =
     let chart = new Chart(Dock=DockStyle.Fill)
     let area = new ChartArea(Name="Area1")
     let series = new Series()
-    do series.ChartType <- SeriesChartType.Line
+    do series.ChartType <- SeriesChartType.Column
     do series.ChartArea <- "Area1"
+    do base.Height <- 800
+    do base.Width <- 1500
     
     member self.Add(x : System.Object, y: System.Object) = 
             series.Points.AddXY(x,y)
