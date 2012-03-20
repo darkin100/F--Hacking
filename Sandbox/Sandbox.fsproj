@@ -51,6 +51,8 @@
     <None Include="dgraph_log_split.fsx" />
     <None Include="average_cpu.fsx" />
     <None Include="cpu_plot.fsx" />
+    <None Include="test.fsx" />
+    <None Include="SeqOfSeq.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
