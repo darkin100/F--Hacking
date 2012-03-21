@@ -9,11 +9,16 @@ open System.IO
  /// Fetch the contents of a web page 
 let http(url: string) =  
     let req = System.Net.WebRequest.Create(url)  
-    let resp = req.GetResponse() 
+    let resp = req.GetResponse() :?>  HttpWebResponse
+    let status = resp.StatusCode.ToString()
     let stream = resp.GetResponseStream()  
     let reader = new IO.StreamReader(stream)  
     let html = reader.ReadToEnd() 
     resp.Close()     
+
+    if (status <> "OK") then
+        printfn "%s" url
+    
 
 
 // ok, now fetch a page.  Create the web request, 

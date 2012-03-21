@@ -15,7 +15,7 @@ type LineChartForm(title) =
     let chart = new Chart(Dock=DockStyle.Fill)
     let area = new ChartArea(Name="Area1")
     let series = new Series()
-    do series.ChartType <- SeriesChartType.Column
+    do series.ChartType <- SeriesChartType.Line
     do series.ChartArea <- "Area1"
     do base.Height <- 800
     do base.Width <- 1500
@@ -31,6 +31,12 @@ type LineChartForm(title) =
 
 let f = new LineChartForm("CPU Plot")
 
+let average(line : string[]) =
+    printfn "%A" line
+    let total = (float line.[1] + float line.[2] + float line.[3] + float line.[4] + float line.[5] + float line.[6] + float line.[7])
+    let ave = total / float 7.0
+    ave
+
 let files = 
     seq{
      for f in Directory.EnumerateFiles(@"D:\_junk\PerfLogs\Admin\CPU Performance\","*.csv",SearchOption.AllDirectories) do
@@ -38,14 +44,17 @@ let files =
     }
 
 files
+    |> Seq.map(fun line -> line.Replace("\"",""))    
     |> Seq.map(fun line -> line.Split [|','|])
-    |> Seq.map(fun line -> (line.[0], line.[1]))
-    |> Seq.map(fun (x,y) -> (x.Replace("\"",""),y.Replace("\"","")))    
-    |> Seq.filter(fun (x,y) -> Regex.IsMatch(y,"\d+\.\d+"))
+    |> Seq.filter(fun line -> line.Length > 8)
+    |> Seq.filter(fun line -> Regex.IsMatch(line.[1],"\d+\.\d+"))
+    |> Seq.map(fun line -> (line.[0],average(line)))
     |> Seq.map(fun (x,y) -> (System.DateTime.ParseExact(x, "MM/dd/yyyy HH:mm:ss.FFFF", new CultureInfo("en-GB")),y))    
     |> Seq.sortBy(fun (x,y) -> x)
     |> Seq.map(fun (x,y) -> (x :> System.Object,y :> System.Object))
     |> Seq.iter(f.Add >> ignore)
     
+printfn "%A" files
+
 f.Build()
 f.Show()    

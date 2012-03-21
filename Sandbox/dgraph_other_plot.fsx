@@ -40,7 +40,7 @@ let datetime(x,y) =
     value
 
 
-let lines = File.ReadAllLines(@"D:\Projects\DgraphScripts\output\f\other.txt")
+let lines = File.ReadAllLines(@"D:\Projects\DgraphScripts\output\f\typeahead.txt")
 
 let xy = 
     lines
