@@ -39,7 +39,7 @@ let average(line : string[]) =
 
 let files = 
     seq{
-     for f in Directory.EnumerateFiles(@"D:\_junk\PerfLogs\Admin\CPU Performance\","*.csv",SearchOption.AllDirectories) do
+     for f in Directory.EnumerateFiles(@"D:\work\FHacking\data\PerfLogs\Admin\CPU Performance\","*.csv",SearchOption.AllDirectories) do
               yield! File.ReadLines f
     }
 
